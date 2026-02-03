@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+        .card {
+            width: 90%;
+            max-width: 400px;
+            background: #111;
+            border: 1px solid #333;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.9);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+        @keyframes autoPop {
+            0% { transform: translateY(0) scale(0.8); box-shadow: 0 0 0px rgba(255, 137, 10, 0); }
+            40% { transform: translateY(-45px) scale(1.18); box-shadow: 0 0 90px 20px rgba(255, 137, 10, 1); }
+            70% { transform: translateY(-10px) scale(1.05); box-shadow: 0 0 45px 5px rgba(255, 137, 10, 0.8); }
+            100% { transform: translateY(-18px) scale(1.1); box-shadow: 0 0 55px 10px rgba(255, 137, 10, 0.9); }
+        }
+        .gif {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            display: block;
+            border: 2px solid #ff890a; 
+            animation: autoPop 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            animation-delay: 0.3s;
+        }
+        h1 {
+            color: #ff890a; 
+            font-size: 1.8rem;
+            margin: 10px 0;
+            text-transform: none; 
+        }
+        .name {
+            display: block;
+            color: #ff890a;
+            font-weight: bold;
+        }
+        .message {
+            line-height: 1.6;
+            color: #ccc;
+            font-style: italic;
+            font-size: 1.05rem;
+            margin-top: 15px;
+        }
+        .stripe {
+            position: absolute;
+            width: 4px;
+            height: 18px;
+            top: -20px;
+            z-index: 1;
+            border-radius: 2px;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(1080deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="stripe-container"></div>
+    <div class="card">
+        <img src="2.png" class="gif" alt="Birthday Celebration">
+        <h1>Happiest Birthday<br><span class="name">M.Yasir Imtiaz</span></h1>
+        <p class="message">
+            "To my brother: When times were at their hardest, you were the strength I didn't have. Thank you for being the one person I can always count on and for supporting me through every storm. I love you, brother."
+        </p>
+    </div>
+
+    <script>
+        const container = document.getElementById('stripe-container');
+        const colors = ['#ff890a', '#ffffff', '#555555', '#ffcc00', '#ff4400', '#ffaa00'];
+        
+        function createStripe() {
+            const stripe = document.createElement('div');
+            stripe.className = 'stripe';
+            stripe.style.left = Math.random() * 100 + 'vw';
+            stripe.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            const duration = Math.random() * 2 + 2;
+            stripe.style.animationDuration = duration + 's';
+            stripe.style.opacity = Math.random() * 0.7 + 0.3;
+            
+            container.appendChild(stripe);
+            
+            setTimeout(() => {
+                stripe.remove();
+            }, duration * 1000);
+        }
+
+        for(let i = 0; i < 40; i++) {
+            setTimeout(createStripe, Math.random() * 2000);
+        }
+
+        setInterval(createStripe, 40);
+    </script>
+</body>
+</html>
